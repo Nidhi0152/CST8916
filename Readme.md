@@ -52,3 +52,30 @@ Below is a diagram illustrating the data flow through the system:
 - The **IoT sensors** at Dow's Lake, Fifth Avenue, and NAC send data (ice thickness, snow accumulation, surface temperature, external temperature) to **Azure IoT Hub** every 10 seconds.
 - **Azure Stream Analytics** processes this incoming data using a **Tumbling Window** to aggregate the values over 5-minute periods for each location.
 - Finally, the processed data (average ice thickness and maximum snow accumulation) is stored in **Azure Blob Storage** for future analysis.
+  
+## Implementation Details
+
+### 1.IoT Sensor Simulation
+
+The simulated IoT sensors generate data for three key locations along the Rideau Canal Skateway: **Dow's Lake**, **Fifth Avenue**, and **National Arts Centre (NAC)**. These sensors collect the following parameters:
+
+- **Ice Thickness** (in cm)
+- **Surface Temperature** (in °C)
+- **Snow Accumulation** (in cm)
+- **External Temperature** (in °C)
+
+The data is generated every **10 seconds** and sent to **Azure IoT Hub** in a JSON format. Each simulated sensor randomly generates values for these parameters within realistic ranges.
+
+#### JSON Payload Structure
+
+Here’s the structure of the JSON payload sent by the simulated Dow'sLake sensors:
+```
+{
+    "location": "Dow's Lake",
+    "iceThickness": 33,
+    "surfaceTemperature": 3,
+    "snowAccumulation": 8,
+    "externalTemperature": 0,
+    "timestamp": "2025-04-04T16: 51: 00.745122Z"
+}
+```
