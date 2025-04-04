@@ -79,3 +79,16 @@ Here’s the structure of the JSON payload sent by the simulated Dow'sLake senso
     "timestamp": "2025-04-04T16: 51: 00.745122Z"
 }
 ```
+### 2.IoT Hub Configuration:
+1. **Create IoT Hub**![RidueIoThub](https://github.com/user-attachments/assets/fbbc466f-378a-4e45-bbdf-af65f914622b)
+2. **Register a Device**
+![DowsLake_Senosor](https://github.com/user-attachments/assets/32f28271-5521-4fd8-9057-72f0467510c8)
+![FifthAvenueSensor](https://github.com/user-attachments/assets/cedfc58d-3f55-4a14-b09d-3c793bb5c412)
+![NACSensor](https://github.com/user-attachments/assets/6611b308-c6f7-4e37-a6ea-df81e879e8a4)
+
+### 3.IoT Hub endpoints:
+
+![RidueIoThub_Overview](https://github.com/user-attachments/assets/7ec20617-eded-486f-ac7a-f81ca973a369)
+
+### 3.Azure Stream Analytics Job: 
+Azure Stream Analytics processes the incoming data from Azure IoT Hub and aggregates the data based on specified queries.
