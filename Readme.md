@@ -57,8 +57,7 @@ Below is a diagram illustrating the data flow through the system:
 
 ### 1.IoT Sensor Simulation
 
-The simulated IoT sensors generate data for three key locations along the Rideau Canal Skateway: **Dow's Lake**, **Fifth Avenue**, and **National Arts Centre (NAC)**. These sensors collect the following parameters:
-
+The simulated IoT sensors generate data for three key locations along the Rideau Canal Skateway: **Dow's Lake**, **Fifth Avenue**, and **National Arts Centre (NAC)**. These sensors collect the following Data:
 - **Ice Thickness** (in cm)
 - **Surface Temperature** (in °C)
 - **Snow Accumulation** (in cm)
@@ -80,8 +79,15 @@ Here’s the structure of the JSON payload sent by the simulated Dow'sLake senso
 }
 ```
 ### 2.IoT Hub Configuration:
-1. **Create IoT Hub**![RidueIoThub](https://github.com/user-attachments/assets/fbbc466f-378a-4e45-bbdf-af65f914622b)
+1. **Create IoT Hub**
+- Go to Azure portal, search for IoT hub And create IoT hub.
+   Resource group:cst8916
+   Name: RidueIoTHub
+   region: Canada Central
+   Tier: Free
+![RidueIoThub](https://github.com/user-attachments/assets/fbbc466f-378a-4e45-bbdf-af65f914622b)
 2. **Register a Device**
+- Now Navigate to Device managmnet > Device. Create 3 devices(sensors) Dow'slake, FifthAvenue,NAC.   
 ![DowsLake_Senosor](https://github.com/user-attachments/assets/32f28271-5521-4fd8-9057-72f0467510c8)
 ![FifthAvenueSensor](https://github.com/user-attachments/assets/cedfc58d-3f55-4a14-b09d-3c793bb5c412)
 ![NACSensor](https://github.com/user-attachments/assets/6611b308-c6f7-4e37-a6ea-df81e879e8a4)
