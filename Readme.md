@@ -80,21 +80,49 @@ Here’s the structure of the JSON payload sent by the simulated Dow'sLake senso
 ```
 ### 2.IoT Hub Configuration:
 1. **Create IoT Hub**
-- Go to Azure portal, search for IoT hub And create IoT hub.
+- Create IoT hub.
    Resource group:cst8916
    Name: RidueIoTHub
    region: Canada Central
    Tier: Free
 ![RidueIoThub](https://github.com/user-attachments/assets/fbbc466f-378a-4e45-bbdf-af65f914622b)
 2. **Register a Device**
-- Now Navigate to Device managmnet > Device. Create 3 devices(sensors) Dow'slake, FifthAvenue,NAC.   
+-  Navigate to Device managmnet > Device. Create 3 devices(sensors) Dow'slake, FifthAvenue,NAC.   
 ![DowsLake_Senosor](https://github.com/user-attachments/assets/32f28271-5521-4fd8-9057-72f0467510c8)
 ![FifthAvenueSensor](https://github.com/user-attachments/assets/cedfc58d-3f55-4a14-b09d-3c793bb5c412)
 ![NACSensor](https://github.com/user-attachments/assets/6611b308-c6f7-4e37-a6ea-df81e879e8a4)
 
-### 3.IoT Hub endpoints:
-
+ 3.**IoT Hub endpoints:**
 ![RidueIoThub_Overview](https://github.com/user-attachments/assets/7ec20617-eded-486f-ac7a-f81ca973a369)
 
-### 3.Azure Stream Analytics Job: 
-Azure Stream Analytics processes the incoming data from Azure IoT Hub and aggregates the data based on specified queries.
+### 3.Azure Stream Analytics Job:  
+Job: Azure Stream Analytics processes the incoming data from Azure IoT Hub and aggregates the data based on specified queries.
+- Adding IoT hub as input 
+![CreatingInput1](https://github.com/user-attachments/assets/86f8f62d-1ca0-4973-af42-113bdb3284c5)
+![CreatingInput](https://github.com/user-attachments/assets/564654ba-a4a3-4fe8-b94d-c2244c0446e1)
+- Adding Blob storage as output
+ ![CreatingOutput1](https://github.com/user-attachments/assets/22317509-56fd-4013-85b5-e9b13c60844f)
+![CreatingOutput](https://github.com/user-attachments/assets/04878678-5c1f-42d9-a8e7-639167e6872d)
+-Query used:
+Below query groups incoming data every 5 minutes per location and aggregates:Average Ice Thickness and Maximum Snow Accumulation
+```SELECT
+    location,
+    AVG(iceThickness) AS avgIceThickness,
+    MAX(snowAccumulation) AS maxSnowAccumulation,
+    System.Timestamp AS timestamp
+INTO
+    ridueoutput
+FROM
+    ridueinput
+GROUP BY
+    location,
+    TumblingWindow(minute, 5)
+```
+![container](https://github.com/user-attachments/assets/1cac32fe-8974-456d-b479-b6e045894b92)
+
+### 4. Azure Blob Storage:
+-Created Container (e.g riduecontaineroutput)
+![Uploading container.png…]()
+-After running qurey, output file is stored in container in JSON foramt
+![StoredData_Container](https://github.com/user-attachments/assets/3c9f24a5-06d8-4414-97fe-52810d5ceea3)
+![JSONFile](https://github.com/user-attachments/assets/2dfff3d2-a3b2-4b85-9863-c1e8d769930a)
