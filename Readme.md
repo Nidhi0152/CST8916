@@ -122,7 +122,7 @@ GROUP BY
 
 ### 4. Azure Blob Storage:
 -Created Container (e.g riduecontaineroutput)
-![Uploading container.png…]()
+![CreatingContainer](https://github.com/user-attachments/assets/88572690-cde1-4ff6-bca4-c49ac96ef065)
 -After running qurey, output file is stored in container in JSON foramt
 ![StoredData_Container](https://github.com/user-attachments/assets/3c9f24a5-06d8-4414-97fe-52810d5ceea3)
 ![JSONFile](https://github.com/user-attachments/assets/2dfff3d2-a3b2-4b85-9863-c1e8d769930a)
