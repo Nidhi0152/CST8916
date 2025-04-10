@@ -126,3 +126,39 @@ GROUP BY
 -After running qurey, output file is stored in container in JSON foramt
 ![StoredData_Container](https://github.com/user-attachments/assets/3c9f24a5-06d8-4414-97fe-52810d5ceea3)
 ![JSONFile](https://github.com/user-attachments/assets/2dfff3d2-a3b2-4b85-9863-c1e8d769930a)
+
+## Usage Instructions
+### Running the IoT Sensor Simulation:
+1.Intall python
+2.Generate python scripts for three sensors (DowsLake_Simulator.py,FifthAvenue_Simulator.py,NAC_Simulato.py)
+3.Define **requirement.txt** and put **azure.iot.device** module in it.
+4.Copy **Primary Connection String** for each device from IoT hub and replace in each python script.
+```CONNECTION_STRING = "HostName=RidueIoTHub.azure-devices.net;DeviceId=Dow'sLake;SharedAccessKey=mQRuBBxABqxiPwuZ4YjvJLlvwTqjbakYMM3MUfwo2Po="
+device_client = IoTHubDeviceClient.create_from_connection_string(CONNECTION_STRING)
+```
+5.Run each python scripts in diffrent terminals by creating virtual enviornment and select **requirement.txt** to install required modules.
+
+### Configuring Azure Services:
+1. Create Iot Hub (e.g RidueIoTHub)
+2. Register three sensors for three location in **Device** under **Device mangment**.(e.g Dow'sLake, FifthAvenue, NAC)
+3. Copy **Primary Connection String** for each sensors for python script
+4.Create Stream Analytics (RidueProcessor):
+  -Under Job Topology under Input add IoT Hub input (e.g. ridueinput)
+  -Under Job Topology under Output add Blob Storage output (e.g.ridueoutput)
+  -Under Job Topology under Query insert query, save it and run
+   ```SELECT
+    location,
+    AVG(iceThickness) AS avgIceThickness,
+    MAX(snowAccumulation) AS maxSnowAccumulation,
+    System.Timestamp AS timestamp
+INTO
+    ridueoutput
+FROM
+    ridueinput
+GROUP BY
+    location,
+    TumblingWindow(minute, 5)```
+
+### Accessing Stored Data:
+1. Navigate to Storageaccount and select conatiner (e.g. riduecontaineroutput)
+2. After running qurey above find json file in this container
