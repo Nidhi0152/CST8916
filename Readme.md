@@ -129,10 +129,10 @@ GROUP BY
 
 ## Usage Instructions
 ### Running the IoT Sensor Simulation:
-1.Intall python
-2.Generate python scripts for three sensors (DowsLake_Simulator.py,FifthAvenue_Simulator.py,NAC_Simulato.py)
-3.Define **requirement.txt** and put **azure.iot.device** module in it.
-4.Copy **Primary Connection String** for each device from IoT hub and replace in each python script.
+1. Intall python
+2. Generate python scripts for three sensors (DowsLake_Simulator.py,FifthAvenue_Simulator.py,NAC_Simulato.py)
+3. Define **requirement.txt** and put **azure.iot.device** module in it.
+4. Copy **Primary Connection String** for each device from IoT hub and replace in each python script.
 ```CONNECTION_STRING = "HostName=RidueIoTHub.azure-devices.net;DeviceId=Dow'sLake;SharedAccessKey=mQRuBBxABqxiPwuZ4YjvJLlvwTqjbakYMM3MUfwo2Po="
 device_client = IoTHubDeviceClient.create_from_connection_string(CONNECTION_STRING)
 ```
@@ -162,3 +162,15 @@ GROUP BY
 ### Accessing Stored Data:
 1. Navigate to Storageaccount and select conatiner (e.g. riduecontaineroutput)
 2. After running qurey above find json file in this container
+   
+## Result
+In container(e.g. riduecontaineroutput) json file stores the aggregated sensor data every 5 minutes.
+```
+{"location":"Dow's
+Lake","avgIceThickness":28.862068965517242,"maxSnowAccumulation":15.0,"timestamp":"2025-04-04T16:40:00.0000000Z"}
+{"location":"NAC","avgIceThickness":28.93103448275862,"maxSnowAccumulation":13.0,"timestamp":"2025-04-04T16:40:00.0000000Z"}
+{"location":"Fifth Avenue","avgIceThickness":29.551724137931036,"maxSnowAccumulation":15.0,"timestamp":"2025-04-04T16:40:00.0000000Z"}
+```
+## Reflection
+1. Initially, I had trouble running the Python scripts in a virtual environment because the **requirements.txt** file wasn't properly selected, and dependencies were missing. As a result, the scripts failed to run. Then I followed a video tutorial to correctly set up the virtual environment and install the dependencies from the requirements.txt file. After that, I was able to successfully run the simulation scripts.
+2. This assignment helped me explore Azure IoT services and real-time data processing. I learned how to simulate sensor data, work with Stream Analytics.
