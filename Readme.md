@@ -4,7 +4,7 @@
 
 The **Rideau Canal Skateway**, located in Ottawa, Canada, is one of the world’s largest outdoor skating rinks. Given its historical and iconic status, ensuring the safety of skaters is of utmost importance. The ice conditions and weather factors such as temperature and snow accumulation must be monitored regularly to ensure that the skateway remains safe for users.
 
-To address this, we have designed a **real-time monitoring system** that simulates IoT sensors deployed at key locations along the Rideau Canal (Dow’s Lake, Fifth Avenue, NAC). These sensors collect data about the following parameters every 10 seconds:
+To address this, we have designed a **real-time monitoring system** that simulates IoT sensors deployed at key locations along the Rideau Canal (Dow’s Lake, Fifth Avenue, NAC). These sensors collect data about the following every 10 seconds:
 
 - **Ice Thickness (in cm)**: Critical for determining whether the ice is thick enough to support skaters.
 - **Surface Temperature (in °C)**: Helps identify the potential for ice melting, which could be dangerous for skaters.
@@ -46,7 +46,7 @@ Below is a diagram illustrating the data flow through the system:
 3. **Azure Stream Analytics** processes the data (aggregating ice thickness and snow accumulation) in real-time.
 4. The **processed data** is stored in **Azure Blob Storage** for further analysis.
 
-> **[Insert Data Flow Diagram Here]**
+![image](https://github.com/user-attachments/assets/d0d6d836-f8b3-44e4-a000-11a44202f170)
 
 ### Diagram Explanation:
 - The **IoT sensors** at Dow's Lake, Fifth Avenue, and NAC send data (ice thickness, snow accumulation, surface temperature, external temperature) to **Azure IoT Hub** every 10 seconds.
@@ -55,7 +55,7 @@ Below is a diagram illustrating the data flow through the system:
   
 ## Implementation Details
 
-### 1.IoT Sensor Simulation
+### 1. IoT Sensor Simulation
 
 The simulated IoT sensors generate data for three key locations along the Rideau Canal Skateway: **Dow's Lake**, **Fifth Avenue**, and **National Arts Centre (NAC)**. These sensors collect the following Data:
 - **Ice Thickness** (in cm)
@@ -67,7 +67,7 @@ The data is generated every **10 seconds** and sent to **Azure IoT Hub** in a JS
 
 #### JSON Payload Structure
 
-Here’s the structure of the JSON payload sent by the simulated Dow'sLake sensors:
+Here’s the structure of the JSON payload sent by the simulated Dow's Lake sensors:
 ```
 {
     "location": "Dow's Lake",
@@ -78,32 +78,37 @@ Here’s the structure of the JSON payload sent by the simulated Dow'sLake senso
     "timestamp": "2025-04-04T16: 51: 00.745122Z"
 }
 ```
-### 2.IoT Hub Configuration:
+
+### 2. IoT Hub Configuration:
+
 1. **Create IoT Hub**
-- Create IoT hub.
-   Resource group:cst8916
-   Name: RidueIoTHub
-   region: Canada Central
-   Tier: Free
+   - Create IoT hub.
+     - Resource group: cst8916
+     - Name: RidueIoTHub
+     - Region: Canada Central
+     - Tier: Free
+
 ![RidueIoThub](https://github.com/user-attachments/assets/fbbc466f-378a-4e45-bbdf-af65f914622b)
 2. **Register a Device**
--  Navigate to Device managmnet > Device. Create 3 devices(sensors) Dow'slake, FifthAvenue,NAC.   
+   -  Navigate to Device managmnet > Device. Create 3 devices(sensors) Dow'slake, FifthAvenue,NAC.   
 ![DowsLake_Senosor](https://github.com/user-attachments/assets/32f28271-5521-4fd8-9057-72f0467510c8)
 ![FifthAvenueSensor](https://github.com/user-attachments/assets/cedfc58d-3f55-4a14-b09d-3c793bb5c412)
 ![NACSensor](https://github.com/user-attachments/assets/6611b308-c6f7-4e37-a6ea-df81e879e8a4)
 
- 3.**IoT Hub endpoints:**
+ 3. **IoT Hub endpoints:**
 ![RidueIoThub_Overview](https://github.com/user-attachments/assets/7ec20617-eded-486f-ac7a-f81ca973a369)
 
-### 3.Azure Stream Analytics Job:  
-Job: Azure Stream Analytics processes the incoming data from Azure IoT Hub and aggregates the data based on specified queries.
-- Adding IoT hub as input 
+### 3. Azure Stream Analytics Job
+
+**Job**: Azure Stream Analytics processes the incoming data from Azure IoT Hub and aggregates the data based on specified queries.
+
+- Adding IoT hub as input
 ![CreatingInput1](https://github.com/user-attachments/assets/86f8f62d-1ca0-4973-af42-113bdb3284c5)
 ![CreatingInput](https://github.com/user-attachments/assets/564654ba-a4a3-4fe8-b94d-c2244c0446e1)
 - Adding Blob storage as output
  ![CreatingOutput1](https://github.com/user-attachments/assets/22317509-56fd-4013-85b5-e9b13c60844f)
 ![CreatingOutput](https://github.com/user-attachments/assets/04878678-5c1f-42d9-a8e7-639167e6872d)
--Query used:
+- Query used:
 Below query groups incoming data every 5 minutes per location and aggregates:Average Ice Thickness and Maximum Snow Accumulation
 ```SELECT
     location,
@@ -118,12 +123,14 @@ GROUP BY
     location,
     TumblingWindow(minute, 5)
 ```
-![container](https://github.com/user-attachments/assets/1cac32fe-8974-456d-b479-b6e045894b92)
 
-### 4. Azure Blob Storage:
--Created Container (e.g riduecontaineroutput)
+
+### 4. Azure Blob Storage
+
+- Created Container (e.g., `riduecontaineroutput`)
 ![CreatingContainer](https://github.com/user-attachments/assets/88572690-cde1-4ff6-bca4-c49ac96ef065)
--After running qurey, output file is stored in container in JSON foramt
+![container](https://github.com/user-attachments/assets/1cac32fe-8974-456d-b479-b6e045894b92)
+- After running qurey, output file is stored in container in JSON foramt
 ![StoredData_Container](https://github.com/user-attachments/assets/3c9f24a5-06d8-4414-97fe-52810d5ceea3)
 ![JSONFile](https://github.com/user-attachments/assets/2dfff3d2-a3b2-4b85-9863-c1e8d769930a)
 
@@ -143,9 +150,9 @@ device_client = IoTHubDeviceClient.create_from_connection_string(CONNECTION_STRI
 2. Register three sensors for three location in **Device** under **Device mangment**.(e.g Dow'sLake, FifthAvenue, NAC)
 3. Copy **Primary Connection String** for each sensors for python script
 4.Create Stream Analytics (RidueProcessor):
-  -Under Job Topology under Input add IoT Hub input (e.g. ridueinput)
-  -Under Job Topology under Output add Blob Storage output (e.g.ridueoutput)
-  -Under Job Topology under Query insert query, save it and run
+  - Under Job Topology under Input add IoT Hub input (e.g. ridueinput)
+  - Under Job Topology under Output add Blob Storage output (e.g.ridueoutput)
+  - Under Job Topology under Query insert query, save it and run
    ```SELECT
     location,
     AVG(iceThickness) AS avgIceThickness,
@@ -157,7 +164,8 @@ FROM
     ridueinput
 GROUP BY
     location,
-    TumblingWindow(minute, 5)```
+    TumblingWindow(minute, 5)
+```
 
 ### Accessing Stored Data:
 1. Navigate to Storageaccount and select conatiner (e.g. riduecontaineroutput)
