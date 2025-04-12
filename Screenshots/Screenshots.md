@@ -17,8 +17,6 @@
 **Adding BlobStorage as Output**
 ![CreatingOutput](https://github.com/user-attachments/assets/039b62a5-9d05-43e5-9860-6a093ce058dc)
 ![CreatingOutput1](https://github.com/user-attachments/assets/713aa6c7-aa58-4098-b08a-3c2be4a206dd)
-**Default Query and table**
-![Default_Query](https://github.com/user-attachments/assets/a317c80d-0f9b-4180-81cc-a44916042491)
 **Actaul query for getting data after 5minutes**
 ![Qurey](https://github.com/user-attachments/assets/d73018e4-1772-4170-b84b-c508e12da672)
 ![Output](https://github.com/user-attachments/assets/0f63ad41-cf67-4cdb-ae8a-daa69d707b42)
