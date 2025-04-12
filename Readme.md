@@ -17,36 +17,26 @@ The key challenge that this system addresses is the **real-time monitoring and d
 
 ## System Architecture
 
+![image](https://github.com/user-attachments/assets/d0d6d836-f8b3-44e4-a000-11a44202f170)
+
 The architecture of the **Real-time Monitoring System for Rideau Canal Skateway** consists of the following components:
 
-1. **Simulated IoT Sensors**:
-   - **Location**: Sensors are deployed at three key locations: Dow’s Lake, Fifth Avenue, and the National Arts Centre (NAC).
-   - **Data Collection**: Sensors collect real-time data about ice thickness, surface temperature, snow accumulation, and external temperature every 10 seconds.
+1. **Simulated IoT Sensors**: Deployed at Dow’s Lake, Fifth Avenue, and NAC. They collect real-time data (ice thickness, surface temperature, snow accumulation, and external temperature) every 10 seconds.
 
-2. **Azure IoT Hub**:
-   - **Data Ingestion**: The simulated IoT sensors send the collected data to **Azure IoT Hub**, which acts as a central data hub for all incoming sensor data.
-   - **Real-time Data Stream**: The data is pushed into IoT Hub, where it is made available for processing by Azure Stream Analytics.
+2. **Azure IoT Hub**: Acts as a central hub, receiving data from the sensors and streaming it in real-time to Azure Stream Analytics.
 
-3. **Azure Stream Analytics**:
-   - **Real-time Processing**: The data is processed by **Azure Stream Analytics**, which aggregates it over 5-minute intervals. The processing includes:
-     - Calculating the **average ice thickness** for each 5-minute window.
-     - Determining the **maximum snow accumulation** over the same 5-minute window.
-   - **Data Aggregation**: The data is grouped by **location** (e.g., Dow’s Lake, Fifth Avenue, NAC) and aggregated using a **Tumbling Window**.
+3. **Azure Stream Analytics**: Processes data in 5-minute tumbling windows to calculate:
+   - Average ice thickness
+   - Maximum snow accumulation
+   Aggregates are grouped by location.
 
-4. **Azure Blob Storage**:
-   - **Data Storage**: The processed data, which contains aggregated ice conditions for each location, is stored in **Azure Blob Storage**.
-   - **File Organization**: The output is stored in a structured manner by location and timestamp, making it easy to access and analyze later.
+4. **Azure Blob Storage**: Stores the processed output, organized by location and timestamp for easy access and analysis.
 
-### Data Flow Diagram
+### Data Flow
 
-Below is a diagram illustrating the data flow through the system:
-
-1. **IoT Sensors** collect data from three locations on the Rideau Canal.
-2. **Azure IoT Hub** receives the data in real-time from the sensors.
-3. **Azure Stream Analytics** processes the data (aggregating ice thickness and snow accumulation) in real-time.
-4. The **processed data** is stored in **Azure Blob Storage** for further analysis.
-
-![image](https://github.com/user-attachments/assets/d0d6d836-f8b3-44e4-a000-11a44202f170)
+1. Sensors → Azure IoT Hub  
+2. IoT Hub → Azure Stream Analytics  
+3. Stream Analytics → Azure Blob Storage  
 
 ### Diagram Explanation:
 - The **IoT sensors** at Dow's Lake, Fifth Avenue, and NAC send data (ice thickness, snow accumulation, surface temperature, external temperature) to **Azure IoT Hub** every 10 seconds.
@@ -67,8 +57,9 @@ The data is generated every **10 seconds** and sent to **Azure IoT Hub** in a JS
 
 #### JSON Payload Structure
 
-Here’s the structure of the JSON payload sent by the simulated Dow's Lake sensors:
+Here’s the structure of the JSON payload sent by the simulated sensors:
 ```
+e.g Dow'sLake Sensor
 {
     "location": "Dow's Lake",
     "iceThickness": 33,
@@ -78,6 +69,7 @@ Here’s the structure of the JSON payload sent by the simulated Dow's Lake sens
     "timestamp": "2025-04-04T16: 51: 00.745122Z"
 }
 ```
+Python scripts (`DowsLake_Simulator.py,FifthAvenue_Simulator.py,NAC_Simulator.py`) is used to randomly generate realistic sensor values.
 
 ### 2. IoT Hub Configuration:
 
