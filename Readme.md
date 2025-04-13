@@ -4,7 +4,7 @@
 
 The **Rideau Canal Skateway**, located in Ottawa, Canada, is one of the world’s largest outdoor skating rinks. Given its historical and iconic status, ensuring the safety of skaters is of utmost importance. The ice conditions and weather factors such as temperature and snow accumulation must be monitored regularly to ensure that the skateway remains safe for users.
 
-To address this, we have designed a **real-time monitoring system** that simulates IoT sensors deployed at key locations along the Rideau Canal (Dow’s Lake, Fifth Avenue, NAC). These sensors collect data about the following every 10 seconds:
+To address this, I have designed a **real-time monitoring system** that simulates IoT sensors deployed at key locations along the Rideau Canal (Dow’s Lake, Fifth Avenue, NAC). These sensors collect data about the following every 10 seconds:
 
 - **Ice Thickness (in cm)**: Critical for determining whether the ice is thick enough to support skaters.
 - **Surface Temperature (in °C)**: Helps identify the potential for ice melting, which could be dangerous for skaters.
@@ -13,7 +13,7 @@ To address this, we have designed a **real-time monitoring system** that simulat
 
 This system continuously monitors the data from these sensors and processes it in real-time to detect unsafe conditions. The data is then stored in **Azure Blob Storage** for further analysis.
 
-The key challenge that this system addresses is the **real-time monitoring and detection of unsafe ice conditions**, which helps authorities take timely actions to ensure skater safety along the Rideau Canal Skateway.
+The key challenge that this system addresses is the **real-time monitoring and detection of unsafe ice conditions**, which helps to take timely actions to ensure safety along the Rideau Canal Skateway.
 
 ## System Architecture
 
@@ -38,11 +38,6 @@ The architecture of the **Real-time Monitoring System for Rideau Canal Skateway*
 2. IoT Hub → Azure Stream Analytics  
 3. Stream Analytics → Azure Blob Storage  
 
-### Diagram Explanation:
-- The **IoT sensors** at Dow's Lake, Fifth Avenue, and NAC send data (ice thickness, snow accumulation, surface temperature, external temperature) to **Azure IoT Hub** every 10 seconds.
-- **Azure Stream Analytics** processes this incoming data using a **Tumbling Window** to aggregate the values over 5-minute periods for each location.
-- Finally, the processed data (average ice thickness and maximum snow accumulation) is stored in **Azure Blob Storage** for future analysis.
-  
 ## Implementation Details
 
 ### 1. IoT Sensor Simulation
